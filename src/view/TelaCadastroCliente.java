@@ -2,16 +2,13 @@ package view;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.event.ActionListener; 
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controller.ControllerCadCliente;
-import model.Cliente;
+import controller.ControllerCadCliente; 
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -121,10 +118,7 @@ public class TelaCadastroCliente extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 115, 546, 214);
 		panel.add(scrollPane);
-		
-		String[] header = { "Id","Nome","CPF","RG","VIP" };
-		
-	 
+		 
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {

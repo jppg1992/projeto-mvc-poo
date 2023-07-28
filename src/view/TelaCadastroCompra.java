@@ -11,9 +11,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
-import controller.ControllerCadCliente;
+ 
 import controller.ControllerCadEmpresa;
+import controller.ControllerCadFornecedor;
 import controller.ControllerCadProduto;
 import controller.ControllerCadVendaCompra;
 
@@ -27,18 +27,18 @@ import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class TelaCadastroVenda extends JFrame {
+public class TelaCadastroCompra extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable tableProds;
-	private JTable TableCli;
+	private JTable TableForn;
 
 	ControllerCadVendaCompra controller = new ControllerCadVendaCompra();
 	ControllerCadProduto controllerProd = new ControllerCadProduto();
-	ControllerCadCliente controllerCli = new ControllerCadCliente();
+	ControllerCadFornecedor controllerForn = new ControllerCadFornecedor();
 	ControllerCadEmpresa controllerEmp = new ControllerCadEmpresa();
-	private JTextField txtQtdvenda;
+	private JTextField txtQtdCompra;
 
 	/**
 	 * Launch the application.
@@ -47,7 +47,7 @@ public class TelaCadastroVenda extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaCadastroVenda frame = new TelaCadastroVenda();
+					TelaCadastroCompra frame = new TelaCadastroCompra();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -59,9 +59,9 @@ public class TelaCadastroVenda extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaCadastroVenda() {
+	public TelaCadastroCompra() {
 		setResizable(false);
-		setTitle("Cadastro de Vendas");
+		setTitle("Cadastro de Compras");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 754, 490);
 
@@ -90,7 +90,7 @@ public class TelaCadastroVenda extends JFrame {
 		panel_1.setLayout(null);
 
 		JLabel lblCaixa = new JLabel("Caixa");
-		lblCaixa.setBounds(12, 9, 152, 15);
+		lblCaixa.setBounds(12, 18, 193, 15);
 		panel_1.add(lblCaixa);
 
 		JLabel lblReceitas = new JLabel("Receitas");
@@ -126,21 +126,21 @@ public class TelaCadastroVenda extends JFrame {
 		lblTotal.setBounds(503, 355, 217, 15);
 		panel.add(lblTotal);
 		
-		txtQtdvenda = new JTextField();
-		txtQtdvenda.addKeyListener(new KeyAdapter() {
+		txtQtdCompra = new JTextField();
+		txtQtdCompra.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				 try {
 					int rowIndex =	tableProds.getSelectedRow();
-					controller.calcularTotal(txtQtdvenda, lblTotal, tableProds, rowIndex);
+					controller.calcularTotal(txtQtdCompra, lblTotal, tableProds, rowIndex);
 				 }catch(Exception ex) {
 					lblTotal.setText("Total: R$ 0,00") ;
 				 }
 			}
 		});
-		txtQtdvenda.setBounds(567, 272, 114, 19);
-		panel.add(txtQtdvenda);
-		txtQtdvenda.setColumns(10);
+		txtQtdCompra.setBounds(567, 272, 114, 19);
+		panel.add(txtQtdCompra);
+		txtQtdCompra.setColumns(10);
 		
 		JLabel lblPreco = new JLabel("Preco");
 		lblPreco.setBounds(503, 315, 217, 15);
@@ -150,7 +150,7 @@ public class TelaCadastroVenda extends JFrame {
 		
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(16, 51, 475, 175);
+		scrollPane.setBounds(16, 48, 475, 175);
 		panel.add(scrollPane);
 
 		tableProds = new JTable();
@@ -168,22 +168,22 @@ public class TelaCadastroVenda extends JFrame {
 		
 		scrollPane.setViewportView(tableProds);
 
-		JLabel lblClientesNoCadastro = new JLabel("CLIENTES NO CADASTRO");
-		lblClientesNoCadastro.setBounds(169, 240, 168, 15);
-		panel.add(lblClientesNoCadastro);
+		JLabel lblFornecedoresNoCadastro = new JLabel("FORNECEDORES NO CADASTRO");
+		lblFornecedoresNoCadastro.setBounds(169, 235, 247, 15);
+		panel.add(lblFornecedoresNoCadastro);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(16, 261, 475, 175);
 		panel.add(scrollPane_1);
 
-		TableCli = new JTable();
-		TableCli.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "CPF", "RG", "VIP" }));
-		controllerCli.carregaTabela(TableCli);
-		scrollPane_1.setViewportView(TableCli);
+		TableForn = new JTable();
+		TableForn.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Nome",  "CNPJ", "Razão Social","Parceria" }));
+		controllerForn.carregaTabela(TableForn);
+		scrollPane_1.setViewportView(TableForn);
 
 		
-		JButton btnFinalizarVenda = new JButton("FINALIZAR VENDA");
-		btnFinalizarVenda.addActionListener(new ActionListener() {
+		JButton btnFinalizarCompra = new JButton("FINALIZAR COMPRA");
+		btnFinalizarCompra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				int rowIndexPr = -1;	
@@ -191,18 +191,18 @@ public class TelaCadastroVenda extends JFrame {
 				int rowIndexCli = -1;	
 				try {
 					rowIndexPr = tableProds.getSelectedRow();
-					rowIndexCli = TableCli.getSelectedRow();
-					if (controller.validarVenda(rowIndexPr, rowIndexCli, txtQtdvenda, rdbtnPrazo, rdbtnAVista) == true) {
+					rowIndexCli = TableForn.getSelectedRow();
+					if (controller.validarVenda(rowIndexPr, rowIndexCli, txtQtdCompra, rdbtnPrazo, rdbtnAVista) == true) {
 						 
-						controller.calcularTotal(txtQtdvenda, lblTotal, tableProds, rowIndexPr);
-						controller.vender(rowIndexPr, tableProds, rowIndexCli, TableCli, txtQtdvenda, rdbtnPrazo, rdbtnAVista);
+						controller.calcularTotal(txtQtdCompra, lblTotal, tableProds, rowIndexPr);
+						controller.comprar(rowIndexPr, tableProds, rowIndexCli, TableForn, txtQtdCompra, rdbtnPrazo, rdbtnAVista);
 						
 						Object[] options = { "Sim", "Não" };
 						int resposta = JOptionPane.showOptionDialog(null, "Deseja continuar cadastrando?", "CADASTRO DE VENDA", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
 						
 						if (resposta == 0) {
 							dispose();
-							TelaCadastroVenda.main(null);
+							TelaCadastroCompra.main(null);
 						}else {
 							dispose();
 							TelaMenuPrincipal.main(null);
@@ -218,8 +218,8 @@ public class TelaCadastroVenda extends JFrame {
 				
 			}
 		});
-		btnFinalizarVenda.setBounds(503, 392, 217, 25);
-		panel.add(btnFinalizarVenda);
+		btnFinalizarCompra.setBounds(503, 411, 217, 25);
+		panel.add(btnFinalizarCompra);
 		
 		controller.carregarBalanco(controllerEmp.empresa, lblReceitas, lblDvidas, lblCaixa);
 		
@@ -232,7 +232,7 @@ public class TelaCadastroVenda extends JFrame {
 				}
 			}
 		});	
-		btnBalanco.setBounds(125, 6, 83, 21);
+		btnBalanco.setBounds(125, 12, 85, 27);
 		panel_1.add(btnBalanco);
 
 	}

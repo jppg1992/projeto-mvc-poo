@@ -1,11 +1,13 @@
+create database projeto_poo; 
+ 
  create table empresa (
 	id serial primary key,
 	nome varchar(150) not null,
 	cnpj bigint not null,
 	razaoSocial varchar(150),
-	caixa numeric(10,3) not null,
-	receitas numeric(10,3) not null,
-	dividas numeric(10,3) not null
+	caixa numeric(10,2) not null,
+	receitas numeric(10,2) not null,
+	dividas numeric(10,2) not null
 );
 
 create table fornecedor (
@@ -29,6 +31,6 @@ CREATE TABLE PRODUTO (
 	id serial primary key,
 	nome varchar(150) not null,
 	codigoBarras integer not null,
-	preco DOUBLE not null,
-	quantidade DOUBLE not null
+	preco numeric(10,2) not null,
+	quantidade integer not null
 );

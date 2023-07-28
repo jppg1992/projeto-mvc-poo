@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 public class TelaCadastroEmpresa  extends JFrame{
 
 	 
+	private static final long serialVersionUID = 1L;
 	private JTextField campoNome;
 	private JTextField campoRazaoSocial;
 	private JTextField campoCnpj;
@@ -99,7 +100,10 @@ public class TelaCadastroEmpresa  extends JFrame{
 		
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.cadastrarEmpresa(campoNome, campoCnpj, campoRazaoSocial);
+				if (controller.cadastrarEmpresa(campoNome, campoCnpj, campoRazaoSocial)) {
+					dispose();
+					TelaMenuPrincipal.main(null);
+				}
 			}
 		});
 	}

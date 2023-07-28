@@ -10,8 +10,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import model.Fornecedor;
-import model.Produto;
+import model.Fornecedor; 
 
  
 

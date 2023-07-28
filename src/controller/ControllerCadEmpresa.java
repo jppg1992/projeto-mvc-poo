@@ -24,6 +24,7 @@ public class ControllerCadEmpresa {
 
 	public boolean cadastrarEmpresa(JTextField campoNome, JTextField campoCnpj, JTextField campoRazaoSocial) {
 		if (verificarCampos(campoNome, campoCnpj, campoRazaoSocial)) {
+			try {
 			empresa = new Empresa();
 			empresa.setNome(campoNome.getText());
 			empresa.setCnpj(Long.parseLong(campoCnpj.getText()));
@@ -38,6 +39,10 @@ public class ControllerCadEmpresa {
 			campoCnpj.setText("");
 			campoRazaoSocial.setText("");
 			return true;
+		}catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Erro ao inserir empresa, msg:"+e.getMessage());
+			return false;
+		}
 		}
 
 		else {
@@ -45,7 +50,18 @@ public class ControllerCadEmpresa {
 			return false;
 		}
 	}
-
+	public boolean atualizaEmpresa(float caixa,float receitas,float dividas) {
+		try {
+		this.empresa.setCaixa(caixa);
+		this.empresa.setDividas(dividas);
+		this.empresa.setReceitas(receitas);
+		db.atualizarrEmpresa(this.empresa);
+		return true;
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}; 
 	public List<Empresa> listar() {
 		List<Empresa> lista = db.listarEmpresas();
 

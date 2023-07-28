@@ -8,18 +8,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controller.ControllerCadCliente;
 import controller.ControllerCadProduto;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.JRadioButton;
 import javax.swing.JTable; 
 import javax.swing.JScrollPane;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class TelaCadastroProduto extends JFrame {

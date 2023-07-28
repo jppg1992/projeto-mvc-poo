@@ -17,13 +17,17 @@ public class EmpresaDAO {
 	}
 	
 	public void cadastrarEmpresa(Empresa empresa) {
-		String sql = "INSERT INTO empresa (nome, cnpj, razaoSocial) VALUES(?, ?, ?)";
+		String sql = "INSERT INTO empresa (nome, cnpj, razaoSocial,caixa,receitas,dividas) VALUES(?,?,?,?, ?, ?)";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			
 			statement.setString(1, empresa.getNome());
 			statement.setLong(2, empresa.getCnpj());
 			statement.setString(3, empresa.getRazaoSocial()); 
+			statement.setFloat(4, empresa.getCaixa());
+			statement.setFloat(5, empresa.getReceitas());
+			statement.setFloat(6, empresa.getDividas());
+		
 			statement.execute();
 			connection.commit();	
 			
@@ -31,6 +35,24 @@ public class EmpresaDAO {
 			e.printStackTrace();
 		}
 	}
+	public void atualizarrEmpresa(Empresa empresa) {
+		String sql = "update empresa set caixa = ?, receitas = ?, dividas = ? ";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			
+			 
+			statement.setFloat(1, empresa.getCaixa());
+			statement.setFloat(2, empresa.getReceitas());
+			statement.setFloat(3, empresa.getDividas());
+		
+			statement.execute();
+			connection.commit();	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public List<Empresa> listarEmpresas(){
 		List<Empresa> lista = new ArrayList<Empresa>();
@@ -49,9 +71,11 @@ public class EmpresaDAO {
 				empresa.setNome(resultado.getString("nome"));
 				empresa.setCnpj(resultado.getLong("cnpj"));
 				empresa.setRazaoSocial(resultado.getString("razaoSocial"));
-				 
-				lista.add(empresa);
-			}
+				empresa.setCaixa(resultado.getFloat("caixa"));
+				empresa.setReceitas(resultado.getFloat("receitas"));
+				empresa.setDividas(resultado.getFloat("dividas"));
+				lista.add(empresa);	
+				}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

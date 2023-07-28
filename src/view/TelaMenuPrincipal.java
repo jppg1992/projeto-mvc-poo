@@ -4,8 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import controller.ControllerCadEmpresa;
+ 
 import controller.ControllerMenuPrincipal;
 
 import java.awt.event.ActionEvent;
@@ -114,6 +113,19 @@ public class TelaMenuPrincipal {
 		panel.add(btnProdutos);
 		
 		JButton btnComprar = new JButton("COMPRAR");
+		btnComprar.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	        	try {
+	        		
+	        		
+	        		frame.dispose();
+		        	TelaCadastroCompra.main(null);
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+   	        }
+	    });
 		btnComprar.setBounds(172, 158, 150, 125);
 		panel.add(btnComprar);
 		
@@ -121,6 +133,7 @@ public class TelaMenuPrincipal {
 		btnVender.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
 	        	try {
+	        		
 	        		
 	        		frame.dispose();
 		        	TelaCadastroVenda.main(null);

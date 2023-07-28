@@ -10,12 +10,11 @@ public class ControllerMenuPrincipal {
 			btnCadastrarClientes.setEnabled(false);
 			btnCadastrarProdutos.setEnabled(false);
 			btnVenderProdutos.setEnabled(false);
+			btnComprarProdutos.setEnabled(false);
 			
 		}
 		else {
-			System.out.println(controllerCadEmp.empresa.getProdutos().size());
-			System.out.println(controllerCadEmp.empresa.getClientes().size());
-			System.out.println(controllerCadEmp.empresa.getFornecedores().size());
+			 
 			
 			if(controllerCadEmp.empresa.getClientes().size() == 0 || controllerCadEmp.empresa.getFornecedores().size() == 0 || controllerCadEmp.empresa.getProdutos().size() == 0) {
 				btnCriarEmpresa.setEnabled(false);

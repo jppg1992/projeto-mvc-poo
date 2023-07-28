@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class TelaCadastroFornecedor extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField campoNome;
 	private JTextField campoRazaoSocial;
