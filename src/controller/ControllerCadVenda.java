@@ -3,6 +3,7 @@ package controller;
 import java.awt.Color;
 
 import javax.swing.JLabel;
+import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -50,5 +51,27 @@ public class ControllerCadVenda {
 		lblDesp.setText("Receitas: R$"+emp.getDividas());
 		lblCaixa.setText("Caixa: R$"+emp.getCaixa());
 		
+	}
+	
+	public boolean validarVenda (int indexPr,int indexCli,JTextField txtQtd,JRadioButton rbtnPrazo,JRadioButton rbtnAvista  ) {
+		boolean valido = false;
+		if(indexPr >= 0)
+			valido = true;
+		
+		if(indexCli >= 0)
+			valido = true;
+		try {
+			Integer.parseInt(txtQtd.getText());
+			txtQtd.setBackground(new Color(128, 255, 128));
+			valido = true;
+		}catch(Exception e) {
+			txtQtd.setBackground(new Color(255,0,0));
+			valido = false;
+		}
+		
+		if (rbtnPrazo.isSelected()||rbtnAvista.isSelected())
+			valido = true;
+		
+		return valido;
 	}
 }

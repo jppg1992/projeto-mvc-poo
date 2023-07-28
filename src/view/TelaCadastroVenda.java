@@ -18,6 +18,7 @@ import controller.ControllerCadProduto;
 import controller.ControllerCadVenda;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -179,6 +180,27 @@ public class TelaCadastroVenda extends JFrame {
 
 		
 		JButton btnFinalizarVenda = new JButton("FINALIZAR VENDA");
+		btnFinalizarVenda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int rowIndexPr = -1;	
+
+				int rowIndexCli =-1;	
+				try {
+					rowIndexPr = tableProds.getSelectedRow();
+					rowIndexCli = TableCli.getSelectedRow();
+				}
+				catch (Exception ex) {
+					System.out.println(ex.getMessage());
+				}
+				if (controller.validarVenda(rowIndexPr, rowIndexCli, txtQtdvenda, rdbtnPrazo, rdbtnAVista) == true) {
+					//todo: inserir venda
+					controller.calcularTotal(txtQtdvenda, lblTotal, tableProds, rowIndexPr);
+				}else {
+					JOptionPane.showMessageDialog(null, "Preencher e selecionar todos campos necessários !!!!");
+				}
+			}
+		});
 		btnFinalizarVenda.setBounds(503, 392, 217, 25);
 		panel.add(btnFinalizarVenda);
 		
