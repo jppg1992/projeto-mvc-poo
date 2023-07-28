@@ -6,9 +6,12 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import model.Cliente;
+import model.Fornecedor;
 
  
 
@@ -41,11 +44,10 @@ public class ControllerCadCliente {
 		}
 	}
 	
-	public void listar(){
+	public List<Cliente> listar(){
 		List<Cliente> lista = db.listarClientes();
 		
-		for(Cliente cliente:lista)
-			System.out.println(cliente);
+		return lista;
 	}
 	
 	public boolean verificarCampos(JTextField campoNome, JTextField campoCPF, JTextField campoRG, JRadioButton sim, JRadioButton nao) {
@@ -79,5 +81,29 @@ public class ControllerCadCliente {
 			valido = false;
 		
 		return valido;
+	}
+	
+	public void carregaTabela(JTable tabela) {
+		List<Cliente> lista = new ArrayList<Cliente> ();
+		lista =	db.listarClientes();
+		
+		DefaultTableModel model = (DefaultTableModel)tabela.getModel();
+		
+		model.setRowCount(lista.size());
+		for (int i=0; i< lista.size(); i++) {
+			
+			
+			model.setValueAt(lista.get(i).getNome(), i, 0);
+			model.setValueAt(lista.get(i).getCpf(), i, 1);
+			model.setValueAt(lista.get(i).getRg(), i, 2);
+			if (lista.get(i).isVip()) {
+				model.setValueAt("Sim", i, 3);	
+			}else {
+				model.setValueAt("Não", i, 3);
+			}
+			
+			
+		}
+		
 	}
 }

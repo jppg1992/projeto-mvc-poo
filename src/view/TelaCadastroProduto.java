@@ -7,8 +7,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
- 
-import controller.ControllerCadFornecedor;
+
+import controller.ControllerCadCliente;
+import controller.ControllerCadProduto;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,17 +19,20 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.table.DefaultTableModel;
 
-public class TelaCadastroFornecedor extends JFrame {
+public class TelaCadastroProduto extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField campoNome;
-	private JTextField campoRazaoSocial;
-	private JTextField campoCnpj;
-	private JTable table;
+	private JTextField campoBarras;
 
-	ControllerCadFornecedor controller = new ControllerCadFornecedor();
+	ControllerCadProduto controller = new ControllerCadProduto();
+	private JTextField campoPreco;
+	private JTextField campoQtd;
+	private JTable table;
 	/**
 	 * Launch the application.
 	 */
@@ -36,7 +40,7 @@ public class TelaCadastroFornecedor extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaCadastroFornecedor frame = new TelaCadastroFornecedor();
+					TelaCadastroProduto frame = new TelaCadastroProduto();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,12 +52,12 @@ public class TelaCadastroFornecedor extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaCadastroFornecedor() {
+	public TelaCadastroProduto() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 594, 376);
 		
-		setTitle("Cadastro de Fornecedores");
+		setTitle("Cadastro de Produtos");
 		setLocationRelativeTo(null);
 		
 		contentPane = new JPanel();
@@ -77,43 +81,21 @@ public class TelaCadastroFornecedor extends JFrame {
 		panel.add(campoNome);
 		campoNome.setColumns(10);
 		
-		JLabel lblRazaosocial = new JLabel("Razão Social:");
-		lblRazaosocial.setBounds(255, 8, 175, 17);
-		panel.add(lblRazaosocial);
+		JLabel lblBarras = new JLabel("Cód. Barras:");
+		lblBarras.setBounds(255, 8, 175, 17);
+		panel.add(lblBarras);
 		
-		campoRazaoSocial = new JTextField();
-		campoRazaoSocial.setText("");
-		campoRazaoSocial.setBounds(360, 8, 175, 21);
-		panel.add(campoRazaoSocial);
-		campoRazaoSocial.setColumns(10);
+		campoBarras = new JTextField();
+		campoBarras.setText("");
+		campoBarras.setBounds(350, 8, 175, 21);
+		panel.add(campoBarras);
+		campoBarras.setColumns(10);
 		
-		JLabel lblCnpj = new JLabel("CNPJ:");
-		lblCnpj.setBounds(12, 48, 58, 17);
-		panel.add(lblCnpj);
+		JLabel lblPreco = new JLabel("Preço:");
+		lblPreco.setBounds(12, 48, 58, 17);
+		panel.add(lblPreco);
 		
-		campoCnpj = new JTextField();
-		campoCnpj.setText("");
-		campoCnpj.setBounds(60, 50, 125, 21);
-		panel.add(campoCnpj);
-		campoCnpj.setColumns(10);
-		
-		JLabel lblParceiro = new JLabel("Parceiro:");
-		lblParceiro.setBounds(255, 48, 75, 17);
-		panel.add(lblParceiro);
-		
-		JRadioButton rdbtnSim = new JRadioButton("Sim");
-		rdbtnSim.setBounds(339, 46, 50, 25);
-		panel.add(rdbtnSim);
-		
-		JRadioButton rdbtnNao = new JRadioButton("Não");
-		rdbtnNao.setBounds(423, 46, 75, 25);
-		panel.add(rdbtnNao);
-		
-		ButtonGroup grupo = new ButtonGroup();
-		
-		grupo.add(rdbtnNao);
-		grupo.add(rdbtnSim);
-		
+		 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 115, 546, 214);
 		panel.add(scrollPane);
@@ -123,25 +105,27 @@ public class TelaCadastroFornecedor extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Nome", "CNPJ", "Razão Social", "Parceiro"
+				"Descrição", "Cód. Barras", "Preço", "Qtd."
 			}
 		));
+		
 		controller.carregaTabela(table);
+		
 		scrollPane.setViewportView(table);
 		
 		JButton btnInserir = new JButton("Inserir");
-		btnInserir.setBounds(400, 85, 101, 27);
+		btnInserir.setBounds(450, 85, 101, 27);
 		
 		btnInserir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.cadastrarFornecedor(campoNome, campoCnpj, campoRazaoSocial, rdbtnSim, rdbtnNao);
+				controller.cadastrarProduto(campoNome, campoBarras, campoPreco, campoQtd);
 				
 				Object[] options = { "Sim", "Não" };
-				int resposta = JOptionPane.showOptionDialog(null, "Deseja continuar cadastrando?", "CADASTRO DE FORNECEDOR", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
+				int resposta = JOptionPane.showOptionDialog(null, "Deseja continuar cadastrando?", "CADASTRO DE PRODUTO", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
 				
 				if (resposta == 0) {
 					dispose();
-					TelaCadastroFornecedor.main(null);
+					TelaCadastroProduto.main(null);
 				}else {
 					dispose();
 					TelaMenuPrincipal.main(null);
@@ -150,6 +134,20 @@ public class TelaCadastroFornecedor extends JFrame {
 		});
 		
 		panel.add(btnInserir);
+		
+		campoPreco = new JTextField();
+		campoPreco.setBounds(60, 47, 100, 19);
+		panel.add(campoPreco);
+		campoPreco.setColumns(10);
+		
+		JLabel lblQuantidade = new JLabel("Quantidade:");
+		lblQuantidade.setBounds(260, 49, 100, 15);
+		panel.add(lblQuantidade);
+		
+		campoQtd = new JTextField();
+		campoQtd.setBounds(350, 47, 100, 19);
+		panel.add(campoQtd);
+		campoQtd.setColumns(10);
 		
 		
 	}

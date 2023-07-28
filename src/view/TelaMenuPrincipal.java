@@ -6,8 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import controller.ControllerCadEmpresa;
+import controller.ControllerMenuPrincipal;
 
- 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,7 +17,7 @@ public class TelaMenuPrincipal {
 
 	private JFrame frame;
 
-	ControllerCadEmpresa controller = new ControllerCadEmpresa();
+	ControllerMenuPrincipal controller = new ControllerMenuPrincipal();
 	/**
 	 * Launch the application.
 	 */
@@ -47,33 +47,28 @@ public class TelaMenuPrincipal {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setResizable(false);
-		frame.setBounds(100, 100, 500, 300);
+		frame.setBounds(100, 100, 519, 365);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
 		frame.setTitle("Gestão da Empresa");
 		
-		TelaCadastroEmpresa telaEmpresa = new TelaCadastroEmpresa();
-		TelaCadastroFornecedor telaFornecedor = new TelaCadastroFornecedor();
+		 
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 500, 300);
+		panel.setBounds(0, 0, 500, 323);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JButton btnEmpresa = new JButton("EMPRESA");
 		btnEmpresa.addActionListener(new ActionListener() {
 		        public void actionPerformed(ActionEvent e) {
-		        	telaEmpresa.setVisible(true);
+		        	frame.dispose();
+		        	TelaCadastroEmpresa.main(null);
 		        }
 		    });
-		btnEmpresa.setBounds(10, 8, 135, 111);
-		if (controller.empresaCadastrada()) {
-			btnEmpresa.setEnabled(false);
-		}else {
-			btnEmpresa.setEnabled(true);
-		}
-		
+		btnEmpresa.setBounds(10, 8, 150, 125);
+		 
 		panel.add(btnEmpresa);
 		
 		JButton btnFornecedor = new JButton("FORNECEDORES");
@@ -81,15 +76,66 @@ public class TelaMenuPrincipal {
 	        public void actionPerformed(ActionEvent e) {
 	        	try {
 	        		
-	        		telaFornecedor.setVisible(true);
+	        		frame.dispose();
+		        	TelaCadastroFornecedor.main(null);
 					
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
    	        }
 	    });
-		btnFornecedor.setBounds(172, 8, 135, 111);
+		btnFornecedor.setBounds(172, 8, 150, 125);
 		panel.add(btnFornecedor);
+		
+		JButton btnClientes = new JButton("CLIENTES");
+		btnClientes.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	        frame.dispose();
+	      	TelaCadastroCliente.main(null);
+	        }
+	    });
+		btnClientes.setBounds(338, 8, 150, 125);
+		panel.add(btnClientes);
+		
+		JButton btnProdutos = new JButton("PRODUTOS");
+		btnProdutos.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	        	try {
+	        		
+	        		frame.dispose();
+		        	TelaCadastroProduto.main(null);
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+   	        }
+	    });
+		btnProdutos.setBounds(10, 158, 150, 125);
+		panel.add(btnProdutos);
+		
+		JButton btnComprar = new JButton("COMPRAR");
+		btnComprar.setBounds(172, 158, 150, 125);
+		panel.add(btnComprar);
+		
+		JButton btnVender = new JButton("VENDER");
+		btnVender.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	        	try {
+	        		
+	        		frame.dispose();
+		        	TelaCadastroVenda.main(null);
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+   	        }
+	    });
+		btnVender.setBounds(338, 158, 150, 125);
+		panel.add(btnVender);
+		
+		 
+	
+		controller.habilitaBotao(btnEmpresa, btnFornecedor, btnClientes, btnProdutos, btnVender,btnComprar);
 		
 	}
 }

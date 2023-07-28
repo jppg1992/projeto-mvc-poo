@@ -11,8 +11,7 @@ import controller.ControllerCadEmpresa;
 
 import javax.swing.JButton; 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.Dialog.ModalExclusionType;
+import java.awt.event.ActionListener; 
 
 public class TelaCadastroEmpresa  extends JFrame{
 
@@ -65,37 +64,37 @@ public class TelaCadastroEmpresa  extends JFrame{
 		panel.setLayout(null);
 		
 		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setBounds(8, 25, 58, 17);
+		lblNome.setBounds(6, 25, 58, 17);
 		panel.add(lblNome);
 		
 		campoNome = new JTextField();
 		campoNome.setText("");
-		campoNome.setBounds(95, 20, 250, 21);
+		campoNome.setBounds(100, 20, 250, 21);
 		panel.add(campoNome);
 		campoNome.setColumns(10);
 		
 		JLabel lblRazaoSocial = new JLabel("Razão Social:");
-		lblRazaoSocial.setBounds(8, 50, 101, 17);
+		lblRazaoSocial.setBounds(6, 50, 101, 17);
 		panel.add(lblRazaoSocial);
 		
 		campoRazaoSocial = new JTextField();
 		campoRazaoSocial.setText("");
 		campoRazaoSocial.setColumns(10);
-		campoRazaoSocial.setBounds(95, 45, 250, 21);
+		campoRazaoSocial.setBounds(100, 45, 250, 21);
 		panel.add(campoRazaoSocial);
 		
 		JLabel lblCnpj = new JLabel("CNPJ:");
-		lblCnpj.setBounds(8, 75, 58, 17);
+		lblCnpj.setBounds(6, 75, 58, 17);
 		panel.add(lblCnpj);
 		
 		campoCnpj = new JTextField();
 		campoCnpj.setText("");
-		campoCnpj.setBounds(95, 70, 125, 21);
+		campoCnpj.setBounds(100, 70, 125, 21);
 		panel.add(campoCnpj);
 		campoCnpj.setColumns(10);
 		
 		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.setBounds(95, 100, 125, 27);
+		btnSalvar.setBounds(100, 100, 125, 27);
 		panel.add(btnSalvar);
 		
 		btnSalvar.addActionListener(new ActionListener() {

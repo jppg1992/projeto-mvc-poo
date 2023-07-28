@@ -1,5 +1,3 @@
-create database projeto_poo;
-
 create table empresa (
 	id serial primary key,
 	nome varchar(150) not null,
@@ -24,6 +22,10 @@ create table cliente (
 		
 );
 
-
-
-
+CREATE TABLE PRODUTO (
+	id serial primary key,
+	nome varchar(150) not null,
+	codigoBarras integer not null,
+	preco DOUBLE not null,
+	quantidade DOUBLE not null
+);

@@ -6,9 +6,12 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import model.Fornecedor;
+import model.Produto;
 
  
 
@@ -84,5 +87,30 @@ public class ControllerCadFornecedor {
 			valido = false;
 		
 		return valido;
+	}
+	
+	
+	public void carregaTabela(JTable tabela) {
+		List<Fornecedor> lista = new ArrayList<Fornecedor> ();
+		lista =	db.listarFornecedores();
+		
+		DefaultTableModel model = (DefaultTableModel)tabela.getModel();
+		
+		model.setRowCount(lista.size());
+		for (int i=0; i< lista.size(); i++) {
+			
+			
+			model.setValueAt(lista.get(i).getNome(), i, 0);
+			model.setValueAt(lista.get(i).getCnpj(), i, 1);
+			model.setValueAt(lista.get(i).getRazaoSocial(), i, 2);
+			if (lista.get(i).isParceria()) {
+				model.setValueAt("Sim", i, 3);	
+			}else {
+				model.setValueAt("Não", i, 3);
+			}
+			
+			
+		}
+		
 	}
 }

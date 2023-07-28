@@ -36,7 +36,7 @@ public class Empresa extends PessoaJuridica implements Transacao{
 	public void receber(float valor) {
 		receitas = valor+receitas;
 	}
-	public void vender(Produto produto, Cliente cliente, int formaPag) {
+	public float vender(Produto produto, Cliente cliente, int formaPag, int quantidade) {
 		float descontos=0;
 		float juros=0;
 		if(cliente.isVip()) {
@@ -48,9 +48,9 @@ public class Empresa extends PessoaJuridica implements Transacao{
 		else if(formaPag==APRAZO) {
 			juros+=produto.getPreco()*(getJuros()*2);
 		}
-		receber(produto.getPreco()-descontos+juros);
+		return ((produto.getPreco()-descontos+juros)*quantidade);
 	}
-	public void comprar (Produto produto, Fornecedor fornecedor, int formaPag) {
+	public float comprar (Produto produto, Fornecedor fornecedor, int formaPag, int quantidade) {
 		float descontos=0;
 		float juros=0;
 		if(fornecedor.isParceria()) {
@@ -62,15 +62,16 @@ public class Empresa extends PessoaJuridica implements Transacao{
 		else if(formaPag==APRAZO) {
 			juros+=produto.getPreco()*getJuros();
 		}
-		pagar(produto.getPreco()-descontos+juros);
+		return((produto.getPreco()-descontos+juros)*quantidade);
+		
 	}
 	
 	
-	public float balanco() {
+	public void balanco() {
 		caixa = receitas - dividas+caixa;
 		receitas=0;
 		dividas=0;
-		return caixa;
+		
 		
 	}
 	
