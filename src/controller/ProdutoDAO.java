@@ -34,6 +34,24 @@ public class ProdutoDAO {
 		}
 	}
 	
+	public void atualizarProduto(Produto produto) {
+		String sql = "UPDATE produto SET nome = ? ,preco = ? ,quantidade = ? WHERE codigoBarras = ?";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			
+			statement.setString(1, produto.getNome());
+			statement.setFloat(2, produto.getPreco());
+			statement.setInt(3, produto.getQuantidade());
+			statement.setInt(4, produto.getCodigoBarras());
+			
+			statement.execute();
+			connection.commit();	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public List<Produto> listarProdutos(){
 		List<Produto> lista = new ArrayList<Produto>();
 		String sql = "SELECT * FROM produto";

@@ -84,6 +84,7 @@ public class ControllerCadVendaCompra {
 
 		try {
 			ControllerCadEmpresa controllerEmp = new ControllerCadEmpresa();
+			ControllerCadProduto controllerProd = new ControllerCadProduto();
 
 			long cpf = (long) tableCli.getValueAt(indexCli, 1);
 			int barras = (int) tableProd.getValueAt(indexPr, 1);
@@ -116,6 +117,8 @@ public class ControllerCadVendaCompra {
 				
 			controllerEmp.empresa.receber(valorRec);
 			controllerEmp.atualizaEmpresa(controllerEmp.empresa.getCaixa(),controllerEmp.empresa.getReceitas(), controllerEmp.empresa.getDividas());
+			prod.desabastecer(qtd);
+			controllerProd.atualizarProduto(prod);
 			JOptionPane.showMessageDialog(null, "Venda Finalizada Com Sucesso");
 			return true;
 		} catch (Exception ex) {
@@ -129,6 +132,7 @@ public class ControllerCadVendaCompra {
 
 		try {
 			ControllerCadEmpresa controllerEmp = new ControllerCadEmpresa();
+			ControllerCadProduto controllerProd = new ControllerCadProduto();
 
 			long cnpj = (long) tableForn.getValueAt(indexCli, 1);
 			int barras = (int) tableProd.getValueAt(indexPr, 1);
@@ -161,6 +165,8 @@ public class ControllerCadVendaCompra {
 				
 			controllerEmp.empresa.pagar(valorRec);
 			controllerEmp.atualizaEmpresa(controllerEmp.empresa.getCaixa(),controllerEmp.empresa.getReceitas(), controllerEmp.empresa.getDividas());
+			prod.abastecer(qtd);
+			controllerProd.atualizarProduto(prod);
 			JOptionPane.showMessageDialog(null, "Compra Finalizada Com Sucesso");
 			return true;
 		} catch (Exception ex) {

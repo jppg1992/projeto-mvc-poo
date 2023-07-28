@@ -39,6 +39,10 @@ public class ControllerCadProduto {
 		}
 	}
 	
+	public void atualizarProduto ( Produto produto) {
+			db.atualizarProduto(produto); 
+	}
+	
 	public void listar(){
 		List<Produto> lista = db.listarProdutos();
 		
